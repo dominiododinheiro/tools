@@ -6,7 +6,27 @@
 <title>Círculo de Controle — Protocolo do Pânico Financeiro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
+
+  <!-- CONFIGURAÇÕES DO PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1a237e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Protocolo">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<!-- REGISTRO DO SERVICE WORKER -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(reg => console.log('Service Worker do Protocolo registrado!', reg))
+        .catch(err => console.error('Erro no Service Worker:', err));
+    });
+  }
+</script>
+  
+  <style>
   :root{
     --bg: #f3e4de;
     --bg-deep: #ecd6cd;
