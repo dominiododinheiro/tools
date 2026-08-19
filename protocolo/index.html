@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- CONFIGURAÇÕES DO PWA -->
+<!-- CONFIGURAÇÕES DO PWA -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1a237e">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -22,6 +22,22 @@
       navigator.serviceWorker.register('./sw.js')
         .then(reg => console.log('Service Worker do Protocolo registrado!', reg))
         .catch(err => console.error('Erro no Service Worker:', err));
+    });
+  }
+</script>
+  <!-- Configurações do PWA na página principal -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1a237e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Protocolo">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<!-- Registro do Service Worker -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js');
     });
   }
 </script>
