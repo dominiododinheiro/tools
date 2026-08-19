@@ -1,12 +1,10 @@
 {
-  "name": "Reset 5 Online",
-  "short_name": "Reset 5",
-  "description": "Ferramenta e protocolo de reestruturação.",
+  "name": "Kit Reset 5",
+  "short_name": "Protocolo",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1a237e",
-  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "icon-192.png",
