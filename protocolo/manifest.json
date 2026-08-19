@@ -1,7 +1,7 @@
 {
   "name": "Reset 5 Online",
-  "short_name": "Reset 5 Online",
-  "description": "Ferramenta para gerenciamento e negociação de cobranças.",
+  "short_name": "Reset 5",
+  "description": "Ferramenta e protocolo de reestruturação.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
