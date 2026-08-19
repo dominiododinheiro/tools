@@ -1,7 +1,9 @@
-const CACHE_NAME = 'protocolo-v1';
+const CACHE_NAME = 'protocolo-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
+  './senha.html',             // Adicione a página de senha ou página interna aqui
+  './index-principal.html',   // Nome da página principal que abre após a senha
   './manifest.json',
   './icon-192.png',
   './icon-512.png'
