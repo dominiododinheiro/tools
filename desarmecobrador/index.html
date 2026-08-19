@@ -7,6 +7,25 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Configurações PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1a237e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Desarme App">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<!-- Script para Registrar o Service Worker -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(reg => console.log('Service Worker registrado com sucesso!', reg))
+        .catch(err => console.error('Erro ao registrar Service Worker:', err));
+    });
+  }
+</script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
