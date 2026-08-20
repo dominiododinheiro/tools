@@ -1,13 +1,11 @@
 const CACHE_NAME = 'calculos-v2';
 const ASSETS = [
   './',
-  './index.html',
-  './senha.html',
-  './index-principal.html',
+  './index.html', // Agora este é a sua página principal com as ferramentas
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
-  // Ferramentas internas mapeadas no seu grid:
+  // As 14 ferramentas internas:
   './ferramentas/reset-5-minutos.html',
   './ferramentas/declaracao-suficiente.html',
   './ferramentas/pergunta1.html',
