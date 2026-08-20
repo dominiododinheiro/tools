@@ -1,4 +1,4 @@
-const CACHE_NAME = 'calculos-v2';
+const CACHE_NAME = 'calculos-v5';
 const ASSETS = [
   './',
   './index.html', // Agora este é a sua página principal com as ferramentas
