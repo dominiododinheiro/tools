@@ -1,34 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Domínio do Dinheiro</title>
-    <meta http-equiv="refresh" content="0; url=senha.html">
-    <style>
-        body {
-            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: #1a237e;
-            color: #fff;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-        }
-        a {
-            color: #fff;
-            font-size: 18px;
-            text-decoration: underline;
-        }
-        a:hover {
-            color: #ffd54f;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Domínio do Dinheiro — Ferramentas</title>
 
-    <!-- CONFIGURAÇÕES DO PWA -->
+        <!-- CONFIGURAÇÕES DO PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1a237e">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -46,12 +23,733 @@
         });
       }
     </script>
+    <style>
+        /* ============================================
+           ESTILOS GERAIS
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f0f2f5;
+            color: #1a1a1a;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        /* ============================================
+           HEADER / TOPO
+           ============================================ */
+        .topbar {
+            background: #1a237e;
+            color: #fff;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .topbar .logo {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .topbar .logo small {
+            font-size: 12px;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .topbar .logo .emoji {
+            font-size: 26px;
+        }
+
+        .topbar .badge {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .topbar .badge span {
+            color: #ffd54f;
+        }
+
+        .btn-topo {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-topo:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        /* ============================================
+           CONTAINER
+           ============================================ */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px 16px 40px;
+        }
+
+        /* ============================================
+           INTRODUÇÃO
+           ============================================ */
+        .intro {
+            background: #fff;
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e8e8e8;
+        }
+
+        .intro h1 {
+            font-size: 28px;
+            color: #1a237e;
+            margin-bottom: 8px;
+        }
+
+        .intro p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .intro .destaque {
+            color: #1a237e;
+            font-weight: 600;
+        }
+
+        .intro .citacao {
+            margin-top: 12px;
+            padding: 14px 20px;
+            background: #e8eaf6;
+            border-radius: 8px;
+            border-left: 4px solid #1a237e;
+            font-style: italic;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .intro .citacao .autor {
+            font-style: normal;
+            font-weight: 600;
+            color: #1a237e;
+        }
+
+        /* ============================================
+           PROGRESSO
+           ============================================ */
+        .progresso-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e8e8e8;
+        }
+
+        .progresso-card .titulo {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1a237e;
+            margin-bottom: 10px;
+        }
+
+        .progresso-card .barra {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .progresso-card .barra .fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1a237e, #2c5f8a);
+            border-radius: 8px;
+            transition: width 0.6s ease;
+            width: 0%;
+        }
+
+        .progresso-card .info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 13px;
+            color: #777;
+        }
+
+        .progresso-card .info .concluidas {
+            font-weight: 700;
+            color: #1a237e;
+        }
+
+        /* ============================================
+           GRID DE FERRAMENTAS
+           ============================================ */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+        }
+
+        .card-ferramenta {
+            background: #fff;
+            border-radius: 14px;
+            padding: 20px 22px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e8e8e8;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-ferramenta:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+            border-color: #1a237e;
+        }
+
+        .card-ferramenta .icone {
+            font-size: 32px;
+            margin-bottom: 4px;
+        }
+
+        .card-ferramenta .nome {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a237e;
+        }
+
+        .card-ferramenta .desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .card-ferramenta .tag {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 3px 12px;
+            border-radius: 12px;
+            display: inline-block;
+            align-self: flex-start;
+            margin-top: 4px;
+        }
+
+        .tag-essencial {
+            background: #e8eaf6;
+            color: #1a237e;
+        }
+
+        .tag-pratico {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .tag-urgente {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .tag-reflexao {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .tag-planejamento {
+            background: #e0f7fa;
+            color: #00695c;
+        }
+
+        .card-ferramenta .badge-status {
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            font-size: 20px;
+        }
+
+        .card-ferramenta.concluida {
+            border-left: 4px solid #2e7d32;
+        }
+
+        .card-ferramenta.concluida .nome {
+            color: #2e7d32;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            text-align: center;
+            padding: 24px 0 8px;
+            font-size: 13px;
+            color: #999;
+            border-top: 1px solid #e8e8e8;
+            margin-top: 28px;
+        }
+
+        .footer strong {
+            color: #1a237e;
+        }
+
+        /* ============================================
+           RESPONSIVO
+           ============================================ */
+        @media (max-width: 768px) {
+            .topbar .logo {
+                font-size: 17px;
+            }
+            .topbar .badge {
+                font-size: 10px;
+                padding: 4px 12px;
+            }
+            .intro h1 {
+                font-size: 22px;
+            }
+            .intro {
+                padding: 20px;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .card-ferramenta {
+                padding: 16px 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .topbar {
+                padding: 12px 14px;
+            }
+            .topbar .logo {
+                font-size: 15px;
+            }
+            .container {
+                padding: 16px 10px 30px;
+            }
+            .btn-topo {
+                font-size: 11px;
+                padding: 6px 12px;
+            }
+            .progresso-card {
+                padding: 14px 16px;
+            }
+        }
+
+        @media print {
+            .topbar {
+                display: none !important;
+            }
+            .card-ferramenta {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <p style="font-size:24px;margin-bottom:12px;">🔒</p>
-        <p style="font-size:18px;margin-bottom:8px;">Acessando página de login...</p>
-        <p style="font-size:14px;opacity:0.7;">Clique <a href="senha.html">aqui</a> se não for redirecionado.</p>
+
+    <!-- ==========================================
+    TOPBAR
+    ========================================== -->
+    <header class="topbar">
+        <div class="logo">
+            <span class="emoji">💰</span>
+            Domínio do Dinheiro
+            <small>Ferramentas</small>
+        </div>
+        <div class="badge">
+            📊 <span id="progressoBadge">0</span> / 14 concluídos
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn-topo" onclick="marcarTodosConcluidos()">✅ Todos</button>
+            <button class="btn-topo" onclick="limparProgresso()">🗑️ Limpar</button>
+        </div>
+    </header>
+
+    <!-- ==========================================
+    CONTAINER
+    ========================================== -->
+    <div class="container">
+
+        <!-- INTRODUÇÃO -->
+        <div class="intro">
+            <h1>🧭 Sua Jornada Financeira Estoica</h1>
+            <p>
+                Bem-vindo ao <span class="destaque">Domínio do Dinheiro</span> — o método de ouro para sua liberdade financeira.
+                Aqui estão todas as ferramentas da Cartilha, organizadas em um só lugar.
+            </p>
+            <div class="citacao">
+                "Não explique a sua filosofia. Encarne-a."
+                <span class="autor">— Epicteto</span>
+            </div>
+        </div>
+
+        <!-- PROGRESSO -->
+        <div class="progresso-card">
+            <div class="titulo">📈 Seu Progresso</div>
+            <div class="barra">
+                <div class="fill" id="progressoFill" style="width: 0%;"></div>
+            </div>
+            <div class="info">
+                <span class="concluidas" id="progressoTexto">0 / 14 ferramentas</span>
+                <span>Continue assim! 💪</span>
+            </div>
+        </div>
+
+        <!-- GRID DE FERRAMENTAS -->
+        <div class="grid" id="gridFerramentas">
+
+            <!-- 1. Reset de 5 Minutos -->
+            <a href="ferramentas/reset-5-minutos.html" class="card-ferramenta" data-id="reset">
+                <span class="badge-status" id="status-reset">⬜</span>
+                <div class="icone">🧘</div>
+                <div class="nome">Reset de 5 Minutos</div>
+                <div class="desc">A caixa de primeiros socorros para a ansiedade financeira. Use quando o pânico bater.</div>
+                <span class="tag tag-essencial">⭐ Essencial</span>
+            </a>
+
+            <!-- 2. Declaração do Suficiente -->
+            <a href="ferramentas/declaracao-suficiente.html" class="card-ferramenta" data-id="declaracao">
+                <span class="badge-status" id="status-declaracao">⬜</span>
+                <div class="icone">📜</div>
+                <div class="nome">Declaração do Suficiente</div>
+                <div class="desc">Defina quanto você realmente precisa para viver com dignidade e paz.</div>
+                <span class="tag tag-essencial">⭐ Essencial</span>
+            </a>
+
+            <!-- 3. Pergunta 1 — Necessidades Reais -->
+            <a href="ferramentas/pergunta1.html" class="card-ferramenta" data-id="pergunta1">
+                <span class="badge-status" id="status-pergunta1">⬜</span>
+                <div class="icone">🏠</div>
+                <div class="nome">Pergunta 1 — Necessidades Reais</div>
+                <div class="desc">Liste e calcule o valor das suas necessidades essenciais mensais.</div>
+                <span class="tag tag-pratico">📋 Prático</span>
+            </a>
+
+            <!-- 4. Pergunta 2 — Alegrias Reais -->
+            <a href="ferramentas/pergunta2.html" class="card-ferramenta" data-id="pergunta2">
+                <span class="badge-status" id="status-pergunta2">⬜</span>
+                <div class="icone">😊</div>
+                <div class="nome">Pergunta 2 — Alegrias Reais</div>
+                <div class="desc">Descubra o que realmente traz alegria duradoura para sua vida.</div>
+                <span class="tag tag-reflexao">💭 Reflexão</span>
+            </a>
+
+            <!-- 5. Pergunta 3 — Número de Segurança -->
+            <a href="ferramentas/pergunta3.html" class="card-ferramenta" data-id="pergunta3">
+                <span class="badge-status" id="status-pergunta3">⬜</span>
+                <div class="icone">🛡️</div>
+                <div class="nome">Pergunta 3 — Número de Segurança</div>
+                <div class="desc">Calcule seu número de segurança e entenda sua situação financeira.</div>
+                <span class="tag tag-essencial">⭐ Essencial</span>
+            </a>
+
+            <!-- 6. Desafio dos 7 Dias -->
+            <a href="ferramentas/desafio-7-dias.html" class="card-ferramenta" data-id="desafio">
+                <span class="badge-status" id="status-desafio">⬜</span>
+                <div class="icone">🏆</div>
+                <div class="nome">Desafio dos 7 Dias</div>
+                <div class="desc">Uma tarefa por dia para transformar sua relação com o dinheiro.</div>
+                <span class="tag tag-pratico">📋 Prático</span>
+            </a>
+
+            <!-- 7. Auditoria de Estilo de Vida -->
+            <a href="ferramentas/auditoria-estilo-vida.html" class="card-ferramenta" data-id="auditoria">
+                <span class="badge-status" id="status-auditoria">⬜</span>
+                <div class="icone">🔍</div>
+                <div class="nome">Auditoria de Estilo de Vida</div>
+                <div class="desc">Compare seus gastos de 3 anos atrás com os de hoje e identifique padrões.</div>
+                <span class="tag tag-reflexao">💭 Reflexão</span>
+            </a>
+
+            <!-- 8. Orçamento Mensal -->
+            <a href="ferramentas/orcamento-mensal.html" class="card-ferramenta" data-id="orcamento-mensal">
+                <span class="badge-status" id="status-orcamento-mensal">⬜</span>
+                <div class="icone">📊</div>
+                <div class="nome">Orçamento Mensal</div>
+                <div class="desc">Planeje e acompanhe seus gastos mês a mês com cálculos automáticos.</div>
+                <span class="tag tag-planejamento">📅 Planejamento</span>
+            </a>
+
+            <!-- 9. Orçamento Semanal -->
+            <a href="ferramentas/orcamento-semanal.html" class="card-ferramenta" data-id="orcamento-semanal">
+                <span class="badge-status" id="status-orcamento-semanal">⬜</span>
+                <div class="icone">📋</div>
+                <div class="nome">Orçamento Semanal</div>
+                <div class="desc">Planejamento simples e prático para a semana, com reflexão de domingo.</div>
+                <span class="tag tag-planejamento">📅 Planejamento</span>
+            </a>
+
+            <!-- 10. Prática Diária -->
+            <a href="ferramentas/pratica-diaria.html" class="card-ferramenta" data-id="pratica-diaria">
+                <span class="badge-status" id="status-pratica-diaria">⬜</span>
+                <div class="icone">🌅</div>
+                <div class="nome">Prática Diária</div>
+                <div class="desc">Cinco minutos por dia. Manhã e noite. O hábito mais poderoso do sistema.</div>
+                <span class="tag tag-essencial">⭐ Essencial</span>
+            </a>
+
+            <!-- 11. Conversor de Vergonha -->
+            <a href="ferramentas/conversor-vergonha.html" class="card-ferramenta" data-id="conversor-vergonha">
+                <span class="badge-status" id="status-conversor-vergonha">⬜</span>
+                <div class="icone">🔄</div>
+                <div class="nome">Conversor de Vergonha</div>
+                <div class="desc">Transforme a vergonha financeira em ação corajosa.</div>
+                <span class="tag tag-reflexao">💭 Reflexão</span>
+            </a>
+
+            <!-- 12. Seção A — Dívidas Altíssimo Custo -->
+            <a href="ferramentas/secao-a.html" class="card-ferramenta" data-id="secao-a">
+                <span class="badge-status" id="status-secao-a">⬜</span>
+                <div class="icone">🔴</div>
+                <div class="nome">Seção A — Dívidas Altíssimo Custo</div>
+                <div class="desc">Mapeie cartão rotativo e cheque especial. Prioridade máxima de quitação.</div>
+                <span class="tag tag-urgente">🚨 Urgente</span>
+            </a>
+
+            <!-- 13. Seção B — Dívidas Alto Custo -->
+            <a href="ferramentas/secao-b.html" class="card-ferramenta" data-id="secao-b">
+                <span class="badge-status" id="status-secao-b">⬜</span>
+                <div class="icone">🟠</div>
+                <div class="nome">Seção B — Dívidas Alto Custo</div>
+                <div class="desc">Crédito pessoal, empréstimos e CDC. Estratégia de quitação focada.</div>
+                <span class="tag tag-urgente">🚨 Urgente</span>
+            </a>
+
+            <!-- 14. Seção C — Dívidas Menor Custo -->
+            <a href="ferramentas/secao-c.html" class="card-ferramenta" data-id="secao-c">
+                <span class="badge-status" id="status-secao-c">⬜</span>
+                <div class="icone">🔵</div>
+                <div class="nome">Seção C — Dívidas Menor Custo</div>
+                <div class="desc">Consignado, financiamentos imobiliário e veículo. Menor urgência.</div>
+                <span class="tag tag-planejamento">📅 Planejamento</span>
+            </a>
+
+        </div>
+
+        <!-- NOTA LEGAL - DISCLAIMER -->
+<div style="background:#f5f0ef; border-radius:8px; padding:12px 16px; font-size:12px; color:#666; border:1px solid #ddd; margin-top:16px;">
+  <strong>⚠️ Aviso Legal</strong>
+  <p style="margin:4px 0 0 0; font-size:12px; color:#666;">
+    Estas ferramentas/calculadoras online tem caráter <strong>meramente informativo e educacional</strong>. 
+    Os resultados são estimativas baseadas em premissas simplificadas e não consideram 
+    sua situação financeira pessoal, seus objetivos ou necessidades específicas. 
+    <strong>Não constitui</strong> recomendação de investimento, aconselhamento financeiro, 
+    jurídico, tributário ou de qualquer outra natureza profissional. 
+    Consulte um <strong>profissional qualificado</strong> (planejador financeiro, contador 
+    ou advogado) antes de tomar qualquer decisão financeira importante. 
+    Leis, taxas e regulamentações podem mudar — confirme as condições atuais com a 
+    instituição responsável.
+  </p>
+</div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p>
+                <strong>Domínio do Dinheiro</strong> — O Guia Estoico para Quitar Dívidas e Ter Paz com o Dinheiro
+            </p>
+            <p style="margin-top:4px;font-size:12px;color:#bbb;">
+                Todas as ferramentas são interativas e funcionam offline. Dados salvos localmente.
+            </p>
+        </div>
+
     </div>
+
+    <!-- ==========================================
+    JAVASCRIPT — PROGRESSO E SALVAMENTO LOCAL
+    ========================================== -->
+    <script>
+        // ============================
+        // CHAVES PARA LOCALSTORAGE
+        // ============================
+        const CHAVE_PROGRESSO = 'dominio_dinheiro_progresso';
+
+        // Lista de IDs das ferramentas
+        const FERRAMENTAS = [
+            'reset',
+            'declaracao',
+            'pergunta1',
+            'pergunta2',
+            'pergunta3',
+            'desafio',
+            'auditoria',
+            'orcamento-mensal',
+            'orcamento-semanal',
+            'pratica-diaria',
+            'conversor-vergonha',
+            'secao-a',
+            'secao-b',
+            'secao-c'
+        ];
+
+        // ============================
+        // CARREGAR PROGRESSO
+        // ============================
+        function carregarProgresso() {
+            let progresso = {};
+            try {
+                const dados = localStorage.getItem(CHAVE_PROGRESSO);
+                if (dados) {
+                    progresso = JSON.parse(dados);
+                }
+            } catch (e) {
+                console.warn('Erro ao carregar progresso:', e);
+            }
+
+            // Garantir que todas as ferramentas existam
+            FERRAMENTAS.forEach(id => {
+                if (progresso[id] === undefined) {
+                    progresso[id] = false;
+                }
+            });
+
+            return progresso;
+        }
+
+        // ============================
+        // SALVAR PROGRESSO
+        // ============================
+        function salvarProgresso(progresso) {
+            try {
+                localStorage.setItem(CHAVE_PROGRESSO, JSON.stringify(progresso));
+            } catch (e) {
+                console.warn('Erro ao salvar progresso:', e);
+            }
+        }
+
+        // ============================
+        // ATUALIZAR INTERFACE
+        // ============================
+        function atualizarInterface() {
+            const progresso = carregarProgresso();
+
+            // Atualizar badges de status em cada card
+            FERRAMENTAS.forEach(id => {
+                const badge = document.getElementById('status-' + id);
+                const card = document.querySelector(`[data-id="${id}"]`);
+                if (badge) {
+                    badge.textContent = progresso[id] ? '✅' : '⬜';
+                }
+                if (card) {
+                    card.classList.toggle('concluida', progresso[id]);
+                }
+            });
+
+            // Calcular total de concluídos
+            const total = FERRAMENTAS.length;
+            const concluidos = FERRAMENTAS.filter(id => progresso[id]).length;
+
+            // Atualizar barra de progresso
+            const fill = document.getElementById('progressoFill');
+            const texto = document.getElementById('progressoTexto');
+            const badge = document.getElementById('progressoBadge');
+
+            if (fill) {
+                fill.style.width = (concluidos / total * 100) + '%';
+            }
+            if (texto) {
+                texto.textContent = concluidos + ' / ' + total + ' ferramentas';
+            }
+            if (badge) {
+                badge.textContent = concluidos;
+            }
+        }
+
+        // ============================
+        // MARCAR COMO CONCLUÍDO (chamado de cada página)
+        // ============================
+        function marcarConcluido(id) {
+            const progresso = carregarProgresso();
+            progresso[id] = true;
+            salvarProgresso(progresso);
+            atualizarInterface();
+        }
+
+        // ============================
+        // MARCAR TODOS COMO CONCLUÍDOS
+        // ============================
+        function marcarTodosConcluidos() {
+            if (!confirm('Marcar todas as ferramentas como concluídas?')) return;
+            const progresso = carregarProgresso();
+            FERRAMENTAS.forEach(id => {
+                progresso[id] = true;
+            });
+            salvarProgresso(progresso);
+            atualizarInterface();
+        }
+
+        // ============================
+        // LIMPAR PROGRESSO
+        // ============================
+        function limparProgresso() {
+            if (!confirm('Limpar todo o progresso?')) return;
+            const progresso = carregarProgresso();
+            FERRAMENTAS.forEach(id => {
+                progresso[id] = false;
+            });
+            salvarProgresso(progresso);
+            atualizarInterface();
+        }
+
+        // ============================
+        // INICIALIZAR
+        // ============================
+        document.addEventListener('DOMContentLoaded', function() {
+            atualizarInterface();
+
+            // Se estiver em uma página de ferramenta, marcar como concluída
+            // (isso será chamado pelo JavaScript de cada página)
+        });
+
+        // ============================
+        // FUNÇÃO PARA PÁGINAS DE FERRAMENTAS
+        // ============================
+        // Cada página de ferramenta deve chamar:
+        //   marcarConcluido('id-da-ferramenta')
+        // Exemplo: marcarConcluido('reset')
+        // Isso marca a ferramenta como concluída e atualiza o progresso.
+    </script>
+
 </body>
 </html>
