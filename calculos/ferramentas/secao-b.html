@@ -522,6 +522,56 @@ body {
   padding: 8px;
 }
 
+/* ── MODAL CUSTOMIZADO (OPÇÃO 2) ── */
+.modal-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.modal-conteudo {
+  background: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  border: 2px solid #FDEBD0;
+}
+
+.modal-conteudo p {
+  font-size: 15px;
+  color: #1A1A1A;
+  white-space: pre-line;
+  line-height: 1.6;
+}
+
+.modal-conteudo button {
+  background-color: #E67E22;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  float: right;
+  margin-top: 18px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.modal-conteudo button:hover {
+  background-color: #B7600D;
+}
+
 /* ── RESPONSIVO ── */
 @media (max-width: 480px) {
   .resultado-grid {
@@ -556,7 +606,7 @@ body {
   }
 
   body { background: #fff; padding: 0; }
-  .toolbar { display: none !important; }
+  .toolbar, .modal-container { display: none !important; }
 
   .container {
     max-width: 100%;
@@ -855,7 +905,7 @@ body {
           <div class="sub-msg" id="d1-submsg">Informe o valor, tipo e parcelas para ver a análise.</div>
         </div>
 
-        <a href="#" class="resultado-acao" id="d1-acao" onclick="alert('🟠 Estratégia para esta dívida:\n\n1️⃣ Compare com outras dívidas\n2️⃣ Se esta tiver a MAIOR taxa, quite primeiro\n3️⃣ Se tiver a MENOR taxa, deixe por último\n4️⃣ Use o Método Avalanche')">📊 Ver ordem de pagamento</a>
+        <a href="#" class="resultado-acao" id="d1-acao" onclick="abrirModal('🟠 Estratégia para esta dívida:\n\n1️⃣ Compare com outras dívidas\n2️⃣ Se esta tiver a MAIOR taxa, quite primeiro\n3️⃣ Se tiver a MENOR taxa, deixe por último\n4️⃣ Use o Método Avalanche'); return false;">📊 Ver ordem de pagamento</a>
       </div>
 
     </div>
@@ -950,7 +1000,7 @@ body {
           <div class="sub-msg" id="d2-submsg">Informe o valor, tipo e parcelas para ver a análise.</div>
         </div>
 
-        <a href="#" class="resultado-acao" id="d2-acao" onclick="alert('🟠 Estratégia para esta dívida:\n\n1️⃣ Compare com outras dívidas\n2️⃣ Se esta tiver a MAIOR taxa, quite primeiro\n3️⃣ Se tiver a MENOR taxa, deixe por último\n4️⃣ Use o Método Avalanche')">📊 Ver ordem de pagamento</a>
+        <a href="#" class="resultado-acao" id="d2-acao" onclick="abrirModal('🟠 Estratégia para esta dívida:\n\n1️⃣ Compare com outras dívidas\n2️⃣ Se esta tiver a MAIOR taxa, quite primeiro\n3️⃣ Se tiver a MENOR taxa, deixe por último\n4️⃣ Use o Método Avalanche'); return false;">📊 Ver ordem de pagamento</a>
       </div>
 
     </div>
@@ -1045,7 +1095,7 @@ body {
           <div class="sub-msg" id="d3-submsg">Informe o valor, tipo e parcelas para ver a análise.</div>
         </div>
 
-        <a href="#" class="resultado-acao" id="d3-acao" onclick="alert('🟠 Estratégia para esta dívida:\n\n1️⃣ Compare com outras dívidas\n2️⃣ Se esta tiver a MAIOR taxa, quite primeiro\n3️⃣ Se tiver a MENOR taxa, deixe por último\n4️⃣ Use o Método Avalanche')">📊 Ver ordem de pagamento</a>
+        <a href="#" class="resultado-acao" id="d3-acao" onclick="abrirModal('🟠 Estratégia para esta dívida:\n\n1️⃣ Compare com outras dívidas\n2️⃣ Se esta tiver a MAIOR taxa, quite primeiro\n3️⃣ Se tiver a MENOR taxa, deixe por último\n4️⃣ Use o Método Avalanche'); return false;">📊 Ver ordem de pagamento</a>
       </div>
 
     </div>
@@ -1113,7 +1163,27 @@ body {
 
 </div>
 
+<!-- ESTRUTURA DO MODAL (OPÇÃO 2) -->
+<div id="meuModal" class="modal-container" onclick="if(event.target === this) fecharModal()">
+  <div class="modal-conteudo">
+    <p id="modal-texto"></p>
+    <button onclick="fecharModal()">OK</button>
+  </div>
+</div>
+
 <script>
+  // =============================================
+  // MODAL CUSTOMIZADO
+  // =============================================
+  function abrirModal(mensagem) {
+    document.getElementById('modal-texto').innerText = mensagem;
+    document.getElementById('meuModal').style.display = 'flex';
+  }
+
+  function fecharModal() {
+    document.getElementById('meuModal').style.display = 'none';
+  }
+
   // =============================================
   // AUTO-EXPAND TEXTAREA
   // =============================================
