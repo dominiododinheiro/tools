@@ -324,7 +324,7 @@ body {
   gap: 8px;
   cursor: pointer;
   font-size: clamp(14px, 2.2vw, 17px);
-  color: var(--texto);
+  color: var(--texto, #1a1a1a);
   padding: 8px 16px;
   border-radius: 8px;
   border: 2px solid #e0e0e0;
@@ -581,6 +581,97 @@ body {
   padding: 8px;
 }
 
+/* ── MODAIS (POP-UPS) ── */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: 16px;
+}
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.modal-card {
+  background: #fff;
+  border-radius: 12px;
+  max-width: 450px;
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+.modal-overlay.active .modal-card {
+  transform: translateY(0);
+}
+.modal-header {
+  font-size: clamp(16px, 2.5vw, 19px);
+  font-weight: 700;
+  color: #1A3D5C;
+  margin-bottom: 12px;
+  border-bottom: 2px solid #e8f0f8;
+  padding-bottom: 8px;
+}
+.modal-body {
+  font-size: clamp(14px, 2vw, 16px);
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.modal-body ol {
+  margin-left: 20px;
+  margin-top: 8px;
+}
+.modal-body li {
+  margin-bottom: 6px;
+}
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.btn-modal {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+.btn-modal-primary {
+  background: #2C5F8A;
+  color: #fff;
+}
+.btn-modal-primary:hover {
+  background: #1A3D5C;
+}
+.btn-modal-secondary {
+  background: #e0e0e0;
+  color: #333;
+}
+.btn-modal-secondary:hover {
+  background: #d0d0d0;
+}
+.btn-modal-danger {
+  background: #c0392b;
+  color: #fff;
+}
+.btn-modal-danger:hover {
+  background: #a93226;
+}
+
 /* ── RESPONSIVO ── */
 @media (max-width: 480px) {
   .resultado-grid {
@@ -623,7 +714,7 @@ body {
   }
 
   body { background: #fff; padding: 0; }
-  .toolbar { display: none !important; }
+  .toolbar, .modal-overlay { display: none !important; }
 
   .container {
     max-width: 100%;
@@ -809,7 +900,7 @@ body {
     <small>Domínio do Dinheiro · Menor Urgência</small>
   </div>
   <button class="btn btn-inicio" onclick="window.location.href='../index.html'">🏠 Início</button>
-  <button class="btn btn-limpar" onclick="limparTudo()">🗑 Limpar</button>
+  <button class="btn btn-limpar" onclick="abrirModalLimpar()">🗑 Limpar</button>
   <button class="btn btn-pdf" onclick="gerarPDF()">🖨 PDF</button>
 </div>
 
@@ -959,7 +1050,7 @@ body {
           <div class="sub-msg" id="d1-submsg">Informe o valor, tipo e parcelas para ver a análise.</div>
         </div>
 
-        <a href="#" class="resultado-acao" id="d1-acao" onclick="alert('🔵 Estratégia para esta dívida:\n\n1️⃣ Mantenha as parcelas em dia\n2️⃣ Não acelere o pagamento antes das Seções A e B\n3️⃣ Avalie se o bem vale mais que a dívida\n4️⃣ Considere a portabilidade para taxa menor')">📊 Ver estratégia</a>
+        <button type="button" class="resultado-acao" id="d1-acao" onclick="abrirModalEstrategia(1)">📊 Ver estratégia</button>
       </div>
 
     </div>
@@ -1070,7 +1161,7 @@ body {
           <div class="sub-msg" id="d2-submsg">Informe o valor, tipo e parcelas para ver a análise.</div>
         </div>
 
-        <a href="#" class="resultado-acao" id="d2-acao" onclick="alert('🔵 Estratégia para esta dívida:\n\n1️⃣ Mantenha as parcelas em dia\n2️⃣ Não acelere o pagamento antes das Seções A e B\n3️⃣ Avalie se o bem vale mais que a dívida\n4️⃣ Considere a portabilidade para taxa menor')">📊 Ver estratégia</a>
+        <button type="button" class="resultado-acao" id="d2-acao" onclick="abrirModalEstrategia(2)">📊 Ver estratégia</button>
       </div>
 
     </div>
@@ -1181,7 +1272,7 @@ body {
           <div class="sub-msg" id="d3-submsg">Informe o valor, tipo e parcelas para ver a análise.</div>
         </div>
 
-        <a href="#" class="resultado-acao" id="d3-acao" onclick="alert('🔵 Estratégia para esta dívida:\n\n1️⃣ Mantenha as parcelas em dia\n2️⃣ Não acelere o pagamento antes das Seções A e B\n3️⃣ Avalie se o bem vale mais que a dívida\n4️⃣ Considere a portabilidade para taxa menor')">📊 Ver estratégia</a>
+        <button type="button" class="resultado-acao" id="d3-acao" onclick="abrirModalEstrategia(3)">📊 Ver estratégia</button>
       </div>
 
     </div>
@@ -1250,6 +1341,38 @@ body {
 
 </div>
 
+<!-- ── MODAL ESTRATÉGIA ── -->
+<div class="modal-overlay" id="modalEstrategia">
+  <div class="modal-card">
+    <div class="modal-header">🔵 Estratégia para esta dívida</div>
+    <div class="modal-body">
+      <ol>
+        <li>Mantenha as parcelas em dia</li>
+        <li>Não acelere o pagamento antes das Seções A e B</li>
+        <li>Avalie se o bem vale mais que a dívida</li>
+        <li>Considere a portabilidade para taxa menor</li>
+      </ol>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal btn-modal-primary" onclick="fecharModal('modalEstrategia')">Entendi</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL LIMPAR ── -->
+<div class="modal-overlay" id="modalLimpar">
+  <div class="modal-card">
+    <div class="modal-header">🗑 Confirmar Limpeza</div>
+    <div class="modal-body">
+      Deseja realmente limpar todo o preenchimento da Seção C?
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal btn-modal-secondary" onclick="fecharModal('modalLimpar')">Cancelar</button>
+      <button class="btn-modal btn-modal-danger" onclick="confirmarLimpar()">Limpar</button>
+    </div>
+  </div>
+</div>
+
 <script>
   // =============================================
   // AUTO-EXPAND TEXTAREA
@@ -1270,6 +1393,26 @@ body {
   // =============================================
   function fmt(v) {
     return 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  // =============================================
+  // FUNÇÕES DE MODAL
+  // =============================================
+  function abrirModalEstrategia(num) {
+    document.getElementById('modalEstrategia').classList.add('active');
+  }
+
+  function abrirModalLimpar() {
+    document.getElementById('modalLimpar').classList.add('active');
+  }
+
+  function fecharModal(id) {
+    document.getElementById(id).classList.remove('active');
+  }
+
+  function confirmarLimpar() {
+    fecharModal('modalLimpar');
+    executarLimpeza();
   }
 
   // =============================================
@@ -1489,10 +1632,9 @@ body {
   }
 
   // =============================================
-  // LIMPAR TUDO
+  // EXECUTAR LIMPEZA
   // =============================================
-  function limparTudo() {
-    if (!confirm('Limpar todo o preenchimento?')) return;
+  function executarLimpeza() {
     document.querySelectorAll('input[type=text], input[type=number]').forEach(el => el.value = '');
     document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
     document.querySelectorAll('textarea').forEach(el => {
