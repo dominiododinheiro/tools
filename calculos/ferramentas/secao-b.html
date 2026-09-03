@@ -522,7 +522,7 @@ body {
   padding: 8px;
 }
 
-/* ── MODAL CUSTOMIZADO (OPÇÃO 2) ── */
+/* ── MODAIS CUSTOMIZADOS ── */
 .modal-container {
   display: none;
   position: fixed;
@@ -554,22 +554,37 @@ body {
   line-height: 1.6;
 }
 
-.modal-conteudo button {
-  background-color: #E67E22;
-  color: #fff;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 700;
-  float: right;
+.modal-botoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
   margin-top: 18px;
+}
+
+.modal-botoes button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
+  border: none;
   transition: background 0.2s;
 }
 
-.modal-conteudo button:hover {
+.btn-confirmar {
+  background-color: #E67E22;
+  color: #fff;
+}
+.btn-confirmar:hover {
   background-color: #B7600D;
+}
+
+.btn-cancelar {
+  background-color: #e0e0e0;
+  color: #333;
+}
+.btn-cancelar:hover {
+  background-color: #ccc;
 }
 
 /* ── RESPONSIVO ── */
@@ -771,7 +786,7 @@ body {
     <small>Domínio do Dinheiro · Segunda Prioridade</small>
   </div>
   <button class="btn btn-inicio" onclick="window.location.href='../index.html'">🏠 Início</button>
-  <button class="btn btn-limpar" onclick="limparTudo()">🗑 Limpar</button>
+  <button class="btn btn-limpar" onclick="confirmarLimpeza()">🗑 Limpar</button>
   <button class="btn btn-pdf" onclick="gerarPDF()">🖨 PDF</button>
 </div>
 
@@ -1163,17 +1178,30 @@ body {
 
 </div>
 
-<!-- ESTRUTURA DO MODAL (OPÇÃO 2) -->
+<!-- MODAL INFORMATIVO -->
 <div id="meuModal" class="modal-container" onclick="if(event.target === this) fecharModal()">
   <div class="modal-conteudo">
     <p id="modal-texto"></p>
-    <button onclick="fecharModal()">OK</button>
+    <div class="modal-botoes">
+      <button class="btn-confirmar" onclick="fecharModal()">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE CONFIRMAÇÃO (LIMPAR) -->
+<div id="modalConfirmar" class="modal-container">
+  <div class="modal-conteudo">
+    <p>Deseja realmente limpar todo o preenchimento?</p>
+    <div class="modal-botoes">
+      <button class="btn-cancelar" onclick="fecharModalConfirmar()">Cancelar</button>
+      <button class="btn-confirmar" onclick="executarLimpeza()">Limpar</button>
+    </div>
   </div>
 </div>
 
 <script>
   // =============================================
-  // MODAL CUSTOMIZADO
+  // MODAIS CUSTOMIZADOS (SEM POPUP DO NAVEGADOR)
   // =============================================
   function abrirModal(mensagem) {
     document.getElementById('modal-texto').innerText = mensagem;
@@ -1182,6 +1210,28 @@ body {
 
   function fecharModal() {
     document.getElementById('meuModal').style.display = 'none';
+  }
+
+  function confirmarLimpeza() {
+    document.getElementById('modalConfirmar').style.display = 'flex';
+  }
+
+  function fecharModalConfirmar() {
+    document.getElementById('modalConfirmar').style.display = 'none';
+  }
+
+  function executarLimpeza() {
+    fecharModalConfirmar();
+    document.querySelectorAll('input[type=text], input[type=number]').forEach(el => el.value = '');
+    document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+    document.querySelectorAll('textarea').forEach(el => {
+      el.value = '';
+      autoExpand(el);
+    });
+    calcTotais();
+    calcularD1();
+    calcularD2();
+    calcularD3();
   }
 
   // =============================================
@@ -1307,7 +1357,6 @@ body {
     var taxa = getTaxa(tipo, personalizada);
     var taxaDisplay = getTaxaDisplay(tipo, personalizada);
 
-    // Usa o valor total para calcular juros futuros
     var valorBase = total > 0 ? total : original;
 
     var totalPagar = valorBase + (valorBase * (taxa / 100) * parcelas);
@@ -1369,23 +1418,6 @@ body {
 
     document.getElementById('total-secao').textContent = fmt(totais);
     document.getElementById('total-parcelas').textContent = fmt(parcelasMensais);
-  }
-
-  // =============================================
-  // LIMPAR TUDO
-  // =============================================
-  function limparTudo() {
-    if (!confirm('Limpar todo o preenchimento?')) return;
-    document.querySelectorAll('input[type=text], input[type=number]').forEach(el => el.value = '');
-    document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
-    document.querySelectorAll('textarea').forEach(el => {
-      el.value = '';
-      autoExpand(el);
-    });
-    calcTotais();
-    calcularD1();
-    calcularD2();
-    calcularD3();
   }
 
   // =============================================
