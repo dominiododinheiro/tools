@@ -575,6 +575,19 @@ body {
 }
 .modal-btn:hover { background: #922B21; }
 
+.btn-cancelar {
+  background: #e0e0e0;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.2s;
+}
+.btn-cancelar:hover { background: #d0d0d0; }
+
 /* ── RESPONSIVO ── */
 @media (max-width: 480px) {
   .resultado-grid {
@@ -1167,7 +1180,7 @@ body {
 
 </div>
 
-<!-- COMPONENTE DE POP-UP / MODAL MODERNO -->
+<!-- COMPONENTE DE POP-UP / MODAL DE AÇÃO -->
 <div class="modal-overlay" id="modalAcao" onclick="fecharModalOverlay(event)">
   <div class="modal-content">
     <div class="modal-header">
@@ -1189,9 +1202,26 @@ body {
   </div>
 </div>
 
+<!-- COMPONENTE DE POP-UP / MODAL DE CONFIRMAÇÃO DE LIMPEZA -->
+<div class="modal-overlay" id="modalLimpar" onclick="fecharModalLimparOverlay(event)">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span>🗑 Limpar Formulário</span>
+      <button class="modal-close" onclick="fecharModalLimpar()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>Tem certeza de que deseja apagar todos os dados preenchidos desta seção?</p>
+    </div>
+    <div class="modal-footer" style="display:flex; justify-content:flex-end; gap:10px;">
+      <button class="btn-cancelar" onclick="fecharModalLimpar()">Cancelar</button>
+      <button class="modal-btn" onclick="confirmarLimpeza()">Sim, limpar tudo</button>
+    </div>
+  </div>
+</div>
+
 <script>
   // =============================================
-  // GERENCIAMENTO DO MODAL (POP-UP)
+  // GERENCIAMENTO DO MODAL DE AÇÃO
   // =============================================
   function abrirModal() {
     var modal = document.getElementById('modalAcao');
@@ -1211,6 +1241,45 @@ body {
     if (event.target === document.getElementById('modalAcao')) {
       fecharModal();
     }
+  }
+
+  // =============================================
+  // GERENCIAMENTO DO MODAL DE LIMPEZA
+  // =============================================
+  function limparTudo() {
+    var modal = document.getElementById('modalLimpar');
+    if (modal) {
+      modal.classList.add('active');
+    }
+  }
+
+  function fecharModalLimpar() {
+    var modal = document.getElementById('modalLimpar');
+    if (modal) {
+      modal.classList.remove('active');
+    }
+  }
+
+  function fecharModalLimparOverlay(event) {
+    if (event.target === document.getElementById('modalLimpar')) {
+      fecharModalLimpar();
+    }
+  }
+
+  function confirmarLimpeza() {
+    document.querySelectorAll('input[type=text], input[type=number]').forEach(el => el.value = '');
+    document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+    document.querySelectorAll('textarea').forEach(el => {
+      el.value = '';
+      autoExpand(el);
+    });
+    
+    calcTotais();
+    calcularD1();
+    calcularD2();
+    calcularD3();
+
+    fecharModalLimpar();
   }
 
   // =============================================
@@ -1260,19 +1329,15 @@ body {
 
   // =============================================
   // CALCULAR TEMPO PARA QUITAR COM PARCELA MÍNIMA
-  // Fórmula: n = log(P / (P - i * V)) / log(1 + i)
-  // Onde: P = parcela, i = taxa, V = valor
   // =============================================
   function calcularTempoQuitacao(valor, parcela, taxa) {
     if (valor <= 0 || parcela <= 0 || taxa <= 0) return null;
     var i = taxa / 100;
     
-    // Se a parcela for menor que os juros, a dívida nunca é quitada
     if (parcela <= valor * i) {
       return 'Nunca — a dívida só cresce! 😰';
     }
     
-    // Fórmula: n = log(P / (P - i*V)) / log(1 + i)
     var n = Math.log(parcela / (parcela - i * valor)) / Math.log(1 + i);
     var meses = Math.ceil(n);
     
@@ -1337,7 +1402,6 @@ body {
     var personalizada = parseFloat(document.getElementById('d' + numero + '-taxa-personalizada').value) || 0;
     var taxa = getTaxa(tipo, personalizada);
 
-    // Usa o valor total para calcular juros futuros (já que é o valor atual)
     var valorBase = total > 0 ? total : original;
 
     var m3 = calcularJuros(valorBase, taxa, 3);
@@ -1348,7 +1412,6 @@ body {
     document.getElementById('d' + numero + '-6meses').textContent = fmt(m6);
     document.getElementById('d' + numero + '-12meses').textContent = fmt(m12);
 
-    // Tempo pagando o mínimo
     var tempoEl = document.getElementById('d' + numero + '-tempo');
     if (valorBase > 0 && minimo > 0) {
       var tempo = calcularTempoQuitacao(valorBase, minimo, taxa);
@@ -1400,23 +1463,6 @@ body {
 
     document.getElementById('total-secao').textContent = fmt(totais);
     document.getElementById('total-parcelas').textContent = fmt(parcelas);
-  }
-
-  // =============================================
-  // LIMPAR TUDO
-  // =============================================
-  function limparTudo() {
-    if (!confirm('Limpar todo o preenchimento?')) return;
-    document.querySelectorAll('input[type=text], input[type=number]').forEach(el => el.value = '');
-    document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
-    document.querySelectorAll('textarea').forEach(el => {
-      el.value = '';
-      autoExpand(el);
-    });
-    calcTotais();
-    calcularD1();
-    calcularD2();
-    calcularD3();
   }
 
   // =============================================
